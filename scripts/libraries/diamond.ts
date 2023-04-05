@@ -34,6 +34,20 @@ function getSimpleSelectors (contract) {
   return tmp
 }
 
+function getRemovedSelectors (A, B) {
+  let aArray = getSelectors(A);
+  let bArray = getSelectors(B);
+  let result = aArray.filter(v => {
+    if(!bArray.includes(v)) return v
+  })
+  return result
+}
+
+function getRemovedSelectorsBySelector (a: string[],b: string[]) {
+  return a.filter(v => {if(!b.includes(v)) return v})
+}
+
+
 // get function selector from function signature
 function getSelector (func) {
   const abiInterface = new ethers.utils.Interface([func])
@@ -93,6 +107,8 @@ function findAddressPositionInFacets (facetAddress, facets) {
 
 exports.getSelectors = getSelectors
 exports.getSimpleSelectors = getSimpleSelectors
+exports.getRemovedSelectors = getRemovedSelectors
+exports.getRemovedSelectorsBySelector = getRemovedSelectorsBySelector
 exports.getSelector = getSelector
 exports.FacetCutAction = FacetCutAction
 exports.remove = remove

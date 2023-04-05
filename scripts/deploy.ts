@@ -2,7 +2,11 @@
 /* eslint prefer-const: "off" */
 //@ts-nocheck
 
-const { getSelectors, FacetCutAction } = require('./libraries/diamond.ts')
+const { getSelectors, 
+  FacetCutAction, 
+  getRemovedSelectors,
+  getRemovedSelectorsBySelector
+ } = require('./libraries/diamond.ts')
 
 async function deployDiamond () {
   const accounts = await ethers.getSigners()
@@ -37,6 +41,24 @@ async function deployDiamond () {
       functionSelectors: getSelectors(facet)
     })
   }
+
+  // 部署ERC721 
+  const ERC721Facet = await ethers.getContractFactory('ERC721')
+  const erc721Facet = await ERC721Facet.deploy()
+  await erc721Facet.deployed()
+  console.log(`ERC721Facet deployed: ${erc721Facet.address}`)
+  console.log(getSelectors(erc721Facet))
+  let erc721Selectors = getRemovedSelectorsBySelector(getSelectors(erc721Facet), facetCuts[0].functionSelectors)
+  console.log(erc721Selectors + '\n')
+  erc721Selectors = getRemovedSelectorsBySelector(erc721Selectors, facetCuts[1].functionSelectors)
+  console.log(erc721Selectors + '\n')
+  erc721Selectors = getRemovedSelectorsBySelector(erc721Selectors, facetCuts[2].functionSelectors)
+  console.log(erc721Selectors + '\n')
+  facetCuts.push({
+    facetAddress: erc721Facet.address,
+    action: FacetCutAction.Add,
+    functionSelectors: erc721Selectors
+  })
 
   // Creating a function call
   // This call gets executed during deployment and can also be executed in upgrades
