@@ -22,6 +22,8 @@ library  LibSBT {
     struct SBTStorage {
         string _name;
         string _symbol;
+        string _desc;
+        address owner;
         mapping(uint256 => address)  _owners;
         mapping(address => uint256)  _balances;
         mapping(uint256 => address)  _tokenApprovals;
@@ -42,9 +44,16 @@ contract SBT is Context, ERC165, IERC721, IERC721Metadata, ISBT{
     using Address for address;
     using Strings for uint256;
 
-    function setConstructor(string memory name_, string memory symbol_) external virtual{
+    modifier onlyOwner() {
+        require(LibSBT.diamondStorage().owner == _msgSender(), "SBT: caller is not the owner");
+        _;
+    }
+
+    function setConstructor(string memory name_, string memory symbol_, string memory desc_) external virtual{
         LibSBT.diamondStorage()._name = name_;
         LibSBT.diamondStorage()._symbol = symbol_;
+        LibSBT.diamondStorage()._desc = desc_;
+        LibSBT.diamondStorage().owner = _msgSender();
     }
 
     /**
@@ -89,6 +98,10 @@ contract SBT is Context, ERC165, IERC721, IERC721Metadata, ISBT{
         return LibSBT.diamondStorage()._symbol;
     }
 
+    function desc() public view virtual returns (string memory){
+        return LibSBT.diamondStorage()._desc;
+    }
+    
     /**
      * @dev See {IERC721Metadata-tokenURI}.
      */
@@ -106,6 +119,10 @@ contract SBT is Context, ERC165, IERC721, IERC721Metadata, ISBT{
      */
     function _baseURI() internal view virtual returns (string memory) {
         return "";
+    }
+
+    function mint(address to, uint256 tokenId) public virtual onlyOwner{
+        _mint(to, tokenId);
     }
 
     /**
