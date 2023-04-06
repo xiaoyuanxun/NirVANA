@@ -17,9 +17,7 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  diamondAbi: {
-    name: "NirVANA",
-  },
+
   networks: {
     scrollAlpha: {
       url: "https://alpha-rpc.scroll.io/l2",

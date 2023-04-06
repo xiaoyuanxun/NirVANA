@@ -18,6 +18,7 @@ contract DiamondFactory {
         facetAddress[1] = address(new DiamondCutFacet());
         facetAddress[2] = address(new DiamondLoupeFacet());
         facetAddress[3] = address(new OwnershipFacet());
+    
         return facetAddress;
     }
 
