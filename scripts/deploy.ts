@@ -60,23 +60,23 @@ async function deployDiamond () {
   //   functionSelectors: erc721Selectors
   // })
 
-  // 部署SBT
-  const SBTFacet = await ethers.getContractFactory('SBT')
-  const sbtFacet = await SBTFacet.deploy()
-  await sbtFacet.deployed()
-  console.log(`SBTFacet deployed: ${sbtFacet.address}`)
-  // console.log(getSelectors(sbtFacet))
-  let sbtFacetSelectors = getRemovedSelectorsBySelector(getSelectors(sbtFacet), facetCuts[0].functionSelectors)
-  // console.log(sbtFacetSelectors + '\n')
-  sbtFacetSelectors = getRemovedSelectorsBySelector(sbtFacetSelectors, facetCuts[1].functionSelectors)
-  // console.log(sbtFacetSelectors + '\n')
-  sbtFacetSelectors = getRemovedSelectorsBySelector(sbtFacetSelectors, facetCuts[2].functionSelectors)
-  // console.log(sbtFacetSelectors + '\n')
-  facetCuts.push({
-    facetAddress: sbtFacet.address,
-    action: FacetCutAction.Add,
-    functionSelectors: sbtFacetSelectors
-  })
+  // // 部署SBT
+  // const SBTFacet = await ethers.getContractFactory('SBT')
+  // const sbtFacet = await SBTFacet.deploy()
+  // await sbtFacet.deployed()
+  // console.log(`SBTFacet deployed: ${sbtFacet.address}`)
+  // // console.log(getSelectors(sbtFacet))
+  // let sbtFacetSelectors = getRemovedSelectorsBySelector(getSelectors(sbtFacet), facetCuts[0].functionSelectors)
+  // // console.log(sbtFacetSelectors + '\n')
+  // sbtFacetSelectors = getRemovedSelectorsBySelector(sbtFacetSelectors, facetCuts[1].functionSelectors)
+  // // console.log(sbtFacetSelectors + '\n')
+  // sbtFacetSelectors = getRemovedSelectorsBySelector(sbtFacetSelectors, facetCuts[2].functionSelectors)
+  // // console.log(sbtFacetSelectors + '\n')
+  // facetCuts.push({
+  //   facetAddress: sbtFacet.address,
+  //   action: FacetCutAction.Add,
+  //   functionSelectors: sbtFacetSelectors
+  // })
 
   // Creating a function call
   // This call gets executed during deployment and can also be executed in upgrades

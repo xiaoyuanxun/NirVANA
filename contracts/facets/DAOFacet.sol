@@ -2,35 +2,30 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import { LibSBT } from "./SBT.sol";
 
 library  LibDAO {
 
+    enum ProposalState {
+        pending,
+        canceled,
+        executed
+    }
+
     bytes32 constant DIAMOND_STORAGE_POSITION = keccak256("diamond.facet.dao.storage");
-    bytes32 constant SBT_STORAGE_POSITION = keccak256("diamond.facet.sbt.storage");
 
     struct Proposal {
         string description;
         uint votes;
-        mapping(address => bool) voted;
-        bool executed;
+        ProposalState state;
+    }
+    
+    struct DAOStorage {
+        Proposal[] _proposals;
+        mapping (uint256 => mapping (address => bool)) voted;
     }
 
-    struct DAOStorage {
-        // IERC721 _nftContract;
-        Proposal[] _proposals;
-        mapping(address => bool) _members;
-    }    
-
-    struct ERC721Storage {
-        string _name;
-        string _symbol;
-        mapping(uint256 => address)  _owners;
-        mapping(address => uint256)  _balances;
-        mapping(uint256 => address)  _tokenApprovals;
-        mapping(address => mapping(address => bool))  _operatorApprovals;
-    }    
-
-    function erc721Storage() internal pure returns (ERC721Storage storage ds) {
+    function diamondStorage() internal pure returns (DAOStorage storage ds) {
         bytes32 position = DIAMOND_STORAGE_POSITION;
         assembly {
             ds.slot := position
@@ -40,58 +35,43 @@ library  LibDAO {
     event ProposalAdded(uint proposalId, string description);
     event Voted(uint proposalId, address voter);
     event ProposalExecuted(uint proposalId, uint votes);
-
-
-    function diamondStorage() internal pure returns (DAOStorage storage ds) {
-        bytes32 position = DIAMOND_STORAGE_POSITION;
-        assembly {
-            ds.slot := position
-        }
-    }
-
 }
 
-contract SimpleDAO is ERC721Holder {
+contract SimpleDAO {
 
-    // function setConstructor(address nftContract) external {
-    //     _nftContract = IERC721(nftContract);
-    // }
+    function addProposal(string memory description) external onlyMember returns (uint) {
+        LibDAO.DAOStorage storage ds =  LibDAO.diamondStorage();
+        uint proposalId = ds._proposals.length;
+        ds._proposals.push(LibDAO.Proposal({
+            description: description,
+            votes: 0,
+            state: LibDAO.ProposalState.pending
+        }));
+        emit LibDAO.ProposalAdded(proposalId, description);
+        return proposalId;
+    }
 
-    // function addMember(address member) external {
-    //     require(_nftContract.balanceOf(member) > 0, "SimpleDAO: only NFT holders can become members");
-    //     _members[member] = true;
-    // }
+    function vote(uint proposalId) external onlyMember {
+        LibDAO.DAOStorage storage ds = LibDAO.diamondStorage();
+        require(ds._proposals[proposalId].state == LibDAO.ProposalState.pending, "SimpleDAO: proposal not on pending");
+        require(!ds.voted[proposalId][msg.sender], "SimpleDAO: member already voted");
 
-    // function addProposal(string memory description) external onlyMember returns (uint) {
-    //     uint proposalId = _proposals.length;
-    //     _proposals.push(Proposal({
-    //         description: description,
-    //         votes: 0,
-    //         executed: false
-    //     }));
-    //     emit ProposalAdded(proposalId, description);
-    //     return proposalId;
-    // }
+        ds.voted[proposalId][msg.sender] = true;
+        ds._proposals[proposalId].votes++;
+        emit LibDAO.Voted(proposalId, msg.sender);
+    }
 
-    // function vote(uint proposalId) external onlyMember {
-    //     require(!_proposals[proposalId].executed, "SimpleDAO: proposal already executed");
-    //     require(!_proposals[proposalId].voted[msg.sender], "SimpleDAO: member already voted");
+    function executeProposal(uint proposalId) external onlyMember {
+        LibDAO.DAOStorage storage ds = LibDAO.diamondStorage();
+        require(ds._proposals[proposalId].state == LibDAO.ProposalState.pending, "SimpleDAO: proposal not on pending");
+        require(ds._proposals[proposalId].votes > (LibSBT.diamondStorage().totalSupply / 2), "SimpleDAO: proposal failed to pass");
 
-    //     _proposals[proposalId].voted[msg.sender] = true;
-    //     _proposals[proposalId].votes++;
-    //     emit Voted(proposalId, msg.sender);
-    // }
+        ds._proposals[proposalId].state = LibDAO.ProposalState.executed;
+        emit LibDAO.ProposalExecuted(proposalId, ds._proposals[proposalId].votes);
+    }
 
-    // function executeProposal(uint proposalId) external onlyMember {
-    //     require(!_proposals[proposalId].executed, "SimpleDAO: proposal already executed");
-    //     require(_proposals[proposalId].votes > (_nftContract.totalSupply() / 2), "SimpleDAO: proposal failed to pass");
-
-    //     _proposals[proposalId].executed = true;
-    //     emit ProposalExecuted(proposalId, _proposals[proposalId].votes);
-    // }
-
-    // modifier onlyMember() {
-    //     require(_members[msg.sender], "SimpleDAO: caller is not a member");
-    //     _;
-    // }
+    modifier onlyMember() {
+        require(LibSBT.diamondStorage()._balances[msg.sender] > 0 , "SimpleDAO: caller is not a member");
+        _;
+    }
 }

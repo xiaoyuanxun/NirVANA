@@ -24,6 +24,7 @@ library  LibSBT {
         string _symbol;
         string _desc;
         address owner;
+        uint256 totalSupply;
         mapping(uint256 => address)  _owners;
         mapping(address => uint256)  _balances;
         mapping(uint256 => address)  _tokenApprovals;
@@ -123,6 +124,7 @@ contract SBT is Context, ERC165, IERC721, IERC721Metadata, ISBT{
 
     function mint(address to, uint256 tokenId) public virtual onlyOwner{
         _mint(to, tokenId);
+        LibSBT.diamondStorage().totalSupply += 1;
     }
 
     /**
