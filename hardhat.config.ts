@@ -6,7 +6,15 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY as string;
 const INFURA_API_KEY = process.env.INFURA_API_KEY;
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.18",
+  solidity: {
+    version: '0.8.17',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    }
+  },
   networks: {
     scrollAlpha: {
       url: "https://alpha-rpc.scroll.io/l2",
