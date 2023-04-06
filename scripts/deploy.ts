@@ -42,22 +42,40 @@ async function deployDiamond () {
     })
   }
 
-  // 部署ERC721 
-  const ERC721Facet = await ethers.getContractFactory('ERC721')
-  const erc721Facet = await ERC721Facet.deploy()
-  await erc721Facet.deployed()
-  console.log(`ERC721Facet deployed: ${erc721Facet.address}`)
-  console.log(getSelectors(erc721Facet))
-  let erc721Selectors = getRemovedSelectorsBySelector(getSelectors(erc721Facet), facetCuts[0].functionSelectors)
-  console.log(erc721Selectors + '\n')
-  erc721Selectors = getRemovedSelectorsBySelector(erc721Selectors, facetCuts[1].functionSelectors)
-  console.log(erc721Selectors + '\n')
-  erc721Selectors = getRemovedSelectorsBySelector(erc721Selectors, facetCuts[2].functionSelectors)
-  console.log(erc721Selectors + '\n')
+  // // 部署ERC721 
+  // const ERC721Facet = await ethers.getContractFactory('ERC721')
+  // const erc721Facet = await ERC721Facet.deploy()
+  // await erc721Facet.deployed()
+  // console.log(`ERC721Facet deployed: ${erc721Facet.address}`)
+  // console.log(getSelectors(erc721Facet))
+  // let erc721Selectors = getRemovedSelectorsBySelector(getSelectors(erc721Facet), facetCuts[0].functionSelectors)
+  // console.log(erc721Selectors + '\n')
+  // erc721Selectors = getRemovedSelectorsBySelector(erc721Selectors, facetCuts[1].functionSelectors)
+  // console.log(erc721Selectors + '\n')
+  // erc721Selectors = getRemovedSelectorsBySelector(erc721Selectors, facetCuts[2].functionSelectors)
+  // console.log(erc721Selectors + '\n')
+  // facetCuts.push({
+  //   facetAddress: erc721Facet.address,
+  //   action: FacetCutAction.Add,
+  //   functionSelectors: erc721Selectors
+  // })
+
+  // 部署SBT
+  const SBTFacet = await ethers.getContractFactory('SBT')
+  const sbtFacet = await SBTFacet.deploy()
+  await sbtFacet.deployed()
+  console.log(`SBTFacet deployed: ${sbtFacet.address}`)
+  // console.log(getSelectors(sbtFacet))
+  let sbtFacetSelectors = getRemovedSelectorsBySelector(getSelectors(sbtFacet), facetCuts[0].functionSelectors)
+  // console.log(sbtFacetSelectors + '\n')
+  sbtFacetSelectors = getRemovedSelectorsBySelector(sbtFacetSelectors, facetCuts[1].functionSelectors)
+  // console.log(sbtFacetSelectors + '\n')
+  sbtFacetSelectors = getRemovedSelectorsBySelector(sbtFacetSelectors, facetCuts[2].functionSelectors)
+  // console.log(sbtFacetSelectors + '\n')
   facetCuts.push({
-    facetAddress: erc721Facet.address,
+    facetAddress: sbtFacet.address,
     action: FacetCutAction.Add,
-    functionSelectors: erc721Selectors
+    functionSelectors: sbtFacetSelectors
   })
 
   // Creating a function call
