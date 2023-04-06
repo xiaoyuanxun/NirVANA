@@ -16,7 +16,7 @@ contract FacetFactory {
         return address(new DAOFacet());
     }
 
-    // function deploySignatureRecovery() external returns (address) {
-    //     return address(new SignatureRecovery());        
-    // }
+    function deploySignatureRecovery() external returns (address) {
+        return address(new SignatureRecovery());        
+    }
 }    
