@@ -61,10 +61,10 @@ const {
             await sbtFacet.mint(accounts[i].address, i);
         }
         assert.equal(await sbtFacet.totalSupply(), 5);
+        // assert.equal(await sbtFacet.connect(accounts[1]).totalSupply(), 5);
     })
 
     it('should add DAO functions', async () => {
-
         const DAOFacet = await ethers.getContractFactory('DAOFacet')
         const daoFacet = await DAOFacet.deploy()
         await daoFacet.deployed()
@@ -94,6 +94,17 @@ const {
         assert.sameMembers(result, selectors)
     })
 
+    it('should test DAO call => addProposal ', async () => {
+        const accounts = await ethers.getSigners()
+
+        let daoFacet = await ethers.getContractAt('DAOFacet', diamondAddress)
+        // await daoFacet.connect(accounts[10]).addProposal("xxxx");
+        await daoFacet.connect(accounts[1]).addProposal("xxxx");
+        // await daoFacet.addProposal("xxxx");
+        await daoFacet.addProposal("xxxx");
+    })
+
+    
     // it('facets should have the right function selectors -- call to facetFunctionSelectors function', async () => {
     //   let selectors = getSelectors(diamondCutFacet)
     //   result = await diamondLoupeFacet.facetFunctionSelectors(addresses[0])
