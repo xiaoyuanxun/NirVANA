@@ -99,10 +99,18 @@ contract SBT is Context, ERC165, IERC721, IERC721Metadata, ISBT{
         return LibSBT.diamondStorage()._symbol;
     }
 
-    function desc() public view virtual returns (string memory){
+    function desc() public view virtual returns (string memory) {
         return LibSBT.diamondStorage()._desc;
     }
-    
+
+    function getOwner() public view virtual returns (address) {
+        return LibSBT.diamondStorage().owner;
+    }
+
+    function totalSupply() public view virtual returns (uint256) {
+        return LibSBT.diamondStorage().totalSupply;
+    }
+
     /**
      * @dev See {IERC721Metadata-tokenURI}.
      */

@@ -37,7 +37,7 @@ library  LibDAO {
     event ProposalExecuted(uint proposalId, uint votes);
 }
 
-contract SimpleDAO {
+contract DAOFacet {
 
     function addProposal(string memory description) external onlyMember returns (uint) {
         LibDAO.DAOStorage storage ds =  LibDAO.diamondStorage();
