@@ -10,7 +10,7 @@ import "./facets/OwnershipFacet.sol";
 import "./upgradeInitializers/DiamondInit.sol";
 
 contract DiamondFactory {
-
+    event InitFacetDeployed(address[4] facetAddress);
     // 部署内置的那四个Facet合约, 返回合约地址
     function initDeployFacet() external returns (address[4] memory) {
         address[4] memory facetAddress;
@@ -18,7 +18,7 @@ contract DiamondFactory {
         facetAddress[1] = address(new DiamondCutFacet());
         facetAddress[2] = address(new DiamondLoupeFacet());
         facetAddress[3] = address(new OwnershipFacet());
-    
+        emit InitFacetDeployed(facetAddress);
         return facetAddress;
     }
 
