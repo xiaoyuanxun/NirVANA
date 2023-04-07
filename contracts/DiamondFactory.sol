@@ -11,6 +11,7 @@ import "./upgradeInitializers/DiamondInit.sol";
 
 contract DiamondFactory {
     event InitFacetDeployed(address[4] facetAddress);
+    event DiamondDeployed(address diamondAddress);
     // 部署内置的那四个Facet合约, 返回合约地址
     function initDeployFacet() external returns (address[4] memory) {
         address[4] memory facetAddress;
@@ -32,7 +33,8 @@ contract DiamondFactory {
     // }
     function deployDiamond(IDiamondCut.FacetCut[] memory _diamondCut, DiamondArgs memory _args) external returns (address) {
         // Contract x = new Contract{value: _value}(params)
-        return address(new Diamond(_diamondCut, _args));
+        address addr =  address(new Diamond(_diamondCut, _args));
+        emit DiamondDeployed(addr);
     }
 
 }    
