@@ -1,14 +1,26 @@
-# NirVANA: A tool for creating modular SBTs based on ERC2535
+- [ENGLISH](./README-EN.md)
 
-NirVANA is a modular SBT distribution tool based on ERC2535 that supports adding/replacing/removing modules after contract deployment. Currently, it supports DAO governance, social recovery, and ZK verification modules.
+# NirVANA: 基于ERC2535的模块化SBT发行工具
 
 NirVANA是一个基于ERC2535的模块化SBT发行工具，且支持合约部署后再次添加/替换/删除 模块，目前已支持：DAO治理，社交恢复，ZK验证模块。
 
-## How does NirVANA work?
+## NirVANA是如何工作的?
 
-NirVANA provides a user-friendly interface for developers to create and manage their SBTs. It simplifies the process of creating modular SBTs by providing a comprehensive set of tools
+NirVANA 基于ERC2535钻石合约，其包含一个主Diamond合约以及其他切面Facet合约。我们提供多种SBT标准，以及多种模块Facet合约。
 
-NirVANA 基于ERC2535钻石合约，钻石合约支持多个切面逻辑合约共享钻石合约的内存，从而
+NirVANA提供了一个友好的界面来创建和管理SBT,以及自由地 增加/替代/删除 模块。
+
+
+![](https://kh4t2-waaaa-aaaal-qbhbq-cai.raw.ic0.app/file/uF8HoUr-i8ZeEa--iN7aI)
+
+## NirVANA的特点
+
+- 单一的SBT合约地址但支持无限的模块合约功能：只需与一个合约地址交互
+
+- SBT合约部署后仍支持 **增加/替代/删除** 模块
+
+- 逻辑模块合约可复用，只需一次部署
+
 ## Contract On Scroll
 
 - DiamondInit : [0xa2a438492eC98e58087e1D5cef284EDCBd022B0f](https://blockscout.scroll.io/address/0xa2a438492eC98e58087e1D5cef284EDCBd022B0f)
