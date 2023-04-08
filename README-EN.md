@@ -18,6 +18,10 @@ NirVANA provides a user-friendly interface to create and manage SBTs, as well as
 
 ![](https://kh4t2-waaaa-aaaal-qbhbq-cai.raw.ic0.app/file/uF8HoUr-i8ZeEa--iN7aI)
 
+## NirVANA's SBT standard
+
+- Based on ERC5192 and compatible with ERC2535 interface standard, storage changed to Diamond Storage
+
 ## NirVANA's modules
 
 - DAOFacet: DAO governance module, users with SBT can perform DAO governance, initiate proposals, conduct voting, and execute proposals

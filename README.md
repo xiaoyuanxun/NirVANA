@@ -21,6 +21,10 @@ NirVANA提供了一个友好的界面来创建和管理SBT,以及自由地 增�
 
 - 逻辑模块合约可复用，只需一次部署
 
+## NirVANA的SBT标准
+
+- 基于ERC5192，并兼容ERC2535的接口标准，存储改为Diamond Storage
+
 ## NirVANA的模块
 
 - DAOFacet: DAO治理模块，持有SBT的用户可以进行DAO治理，发起提案，进行投票，执行提案
