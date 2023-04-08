@@ -76,6 +76,7 @@ contract SignatureRecovery is Context, IERC165, ISignatureRecovery {
 
     function recover(
         address from,
+        uint256 tokenId,
         bytes memory signature
     ) public virtual {
         if (from == address(0)) revert("from address is zero");
@@ -89,7 +90,9 @@ contract SignatureRecovery is Context, IERC165, ISignatureRecovery {
             ))
         );
         if (digest.recover(signature) != from) revert Forbidden();
+        LibSBT.diamondStorage()._owners[tokenId] = _msgSender();
     }
+
 
     function _hashTypedDataV4(bytes32 structHash) internal view virtual returns (bytes32) {
         return ECDSA.toTypedDataHash(_domainSeparatorV4(), structHash);

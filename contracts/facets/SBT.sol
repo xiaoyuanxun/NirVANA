@@ -68,8 +68,14 @@ contract SBT is Context, ERC165, IERC721, IERC721Metadata, ISBT{
             super.supportsInterface(interfaceId);
     }
 
+    function unlock(uint256 tokenId) external returns (bool) {
+        require(_ownerOf(tokenId) == _msgSender(),"not owner!");
+        LibSBT.diamondStorage().unlocked[tokenId] = true;
+        return true;
+    }
+
     /**
-     * @dev See {IERC721-balanceOf}.
+     * @dev See {IERC721-bFalanceOf}.
      */
     function balanceOf(address owner) public view virtual override returns (uint256) {
         require(owner != address(0), "SBT: address zero is not a valid owner");
@@ -485,7 +491,7 @@ contract SBT is Context, ERC165, IERC721, IERC721Metadata, ISBT{
         uint256 firstTokenId,
         uint256 batchSize
     ) internal view{
-       if(from != address(0) && to != address(0) && !LibSBT.diamondStorage().unlocked[firstTokenId]) revert SoulBound();
+       if(from != address(0) && to != address(0) && !LibSBT.diamondStorage().unlocked[firstTokenId]) revert SoulBound();        
        batchSize;
     }
 

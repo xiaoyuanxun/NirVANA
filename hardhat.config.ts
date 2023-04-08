@@ -4,6 +4,7 @@ import { config as dotEnvConfig } from "dotenv";
 dotEnvConfig();
 const PRIVATE_KEY = process.env.PRIVATE_KEY as string;
 const INFURA_API_KEY = process.env.INFURA_API_KEY;
+const NirVANA_API_KEY = process.env.NirVANA_API_KEY;
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -15,6 +16,7 @@ const config: HardhatUserConfig = {
       },
     },
   },
+
   networks: {
     scrollAlpha: {
       url: "https://alpha-rpc.scroll.io/l2",
@@ -22,6 +24,21 @@ const config: HardhatUserConfig = {
       gas: 2100000,
       gasPrice: 8000000000,
     },
+  },
+  etherscan: {
+    apiKey: {
+      scrollAlpha: NirVANA_API_KEY as string,
+    },
+    customChains: [
+      {
+        network: 'scrollAlpha',
+        chainId: 534353,
+        urls: {
+          apiURL: 'https://blockscout.scroll.io/api',
+          browserURL: 'https://blockscout.scroll.io/',
+        },
+      },
+    ],
   },
 };
 

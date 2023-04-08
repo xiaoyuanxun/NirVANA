@@ -35,6 +35,7 @@ contract DiamondFactory {
         // Contract x = new Contract{value: _value}(params)
         address addr =  address(new Diamond(_diamondCut, _args));
         emit DiamondDeployed(addr);
+        return addr;
     }
 
 }    
