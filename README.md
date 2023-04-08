@@ -21,6 +21,14 @@ NirVANA提供了一个友好的界面来创建和管理SBT,以及自由地 增�
 
 - 逻辑模块合约可复用，只需一次部署
 
+## NirVANA的模块
+
+- DAOFacet: DAO治理模块，持有SBT的用户可以进行DAO治理，发起提案，进行投票，执行提案
+
+- RecoveryFacet: 恢复模块，支持签名恢复以及社交恢复
+
+- ZKFacet: ZK验证模块，允许其他合约验证用户的SBT的某个属性，而不暴露属性的值。例如一个代表年龄的SBT，其他合约可以通过ZK验证模块验证某个SBT的年龄属性是否大于一个阀值，而不会暴露具体的值。
+
 ## Contract On Scroll
 
 - DiamondInit : [0xa2a438492eC98e58087e1D5cef284EDCBd022B0f](https://blockscout.scroll.io/address/0xa2a438492eC98e58087e1D5cef284EDCBd022B0f)
@@ -50,17 +58,23 @@ NirVANA提供了一个友好的界面来创建和管理SBT,以及自由地 增�
 ## 项目提交信息
 
 1. 项目名称: NirVANA
-2. 项目图片: ![](https://kh4t2-waaaa-aaaal-qbhbq-cai.raw.ic0.app/file/leEZpRRFMO0zzSBwJjzeq)
-3. 简介: NirVANA是一个基于ERC2535的模块化SBT发行工具，且支持合约部署后再次添加/替换/删除 模块，目前已支持：DAO治理，社交恢复，ZK验证模块。
-4. 队长和队员: 队长Harlan009, 队员Xun勋
-5. 黑客松目标: 完成项目DEMO
-6. 黑客松前2日进度：
+2. 所选赛道: Layer 2 & Scroll
+3. 项目图片: ![](https://kh4t2-waaaa-aaaal-qbhbq-cai.raw.ic0.app/file/leEZpRRFMO0zzSBwJjzeq)
+4. 简介: NirVANA是一个基于ERC2535的模块化SBT发行工具，且支持合约部署后再次添加/替换/删除 模块，目前已支持：DAO治理，社交恢复，ZK验证模块。
+5. 队长和队员: 队长Harlan009, 队员Xun勋
+6. 黑客松目标: 完成项目DEMO
+7. 黑客松前2日进度：
 
     第一天进度：完成SBT合约及核心模块合约部署， 前端完成创建SBT页面
 
     第二天进度：前端完成landing page，profile等页面开发，完成模块拖拽选择模块，完成SBT模块化创建逻辑。改进合约初始化机制，逻辑模块合约一次性部署；初步集成ZK验证模块
 
-7. Demo视频链接: 
-8. 项目 github repo 链接：https://github.com/xiaoyuanxun/NirVANA
-9. 是否基于以前项目: 基于[ERC2535](https://eips.ethereum.org/EIPS/eip-2535)标准
-10. 项目Demo链接: https://nirvava.vercel.app/
+8. Demo视频链接: 
+9. 项目 github repo 链接：
+
+    合约: https://github.com/xiaoyuanxun/NirVANA 
+
+    前端: https://github.com/beyond009/NirVANA-FE
+
+10. 是否基于以前项目: 基于[ERC2535标准](https://eips.ethereum.org/EIPS/eip-2535)
+11. 项目Demo链接: https://nirvava.vercel.app/

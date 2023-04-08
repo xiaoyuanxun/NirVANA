@@ -8,7 +8,7 @@ NirVANA is based on the ERC2535 Diamond contract, which contains a main Diamond 
 
 NirVANA provides a user-friendly interface to create and manage SBTs, as well as the freedom to add/replace/delete modules.
 
-## 特点
+## Features
 
 - Single SBT contract address but supports unlimited modular contract functionality: only one contract address need to interact with
 
@@ -17,6 +17,14 @@ NirVANA provides a user-friendly interface to create and manage SBTs, as well as
 - Logical module contracts are reusable, just need only one deployment
 
 ![](https://kh4t2-waaaa-aaaal-qbhbq-cai.raw.ic0.app/file/uF8HoUr-i8ZeEa--iN7aI)
+
+## NirVANA's modules
+
+- DAOFacet: DAO governance module, users with SBT can perform DAO governance, initiate proposals, conduct voting, and execute proposals
+
+- RecoveryFacet: Recovery module that supports signature recovery as well as social recovery
+
+- ZKFacet: A ZK validation module that allows other contracts to validate an attribute of a user's SBT without exposing the value of the attribute. For example, if an SBT represents an age, other contracts can verify that the age attribute of a particular SBT is greater than a threshold value through the ZK verification module without exposing the specific value.
 
 ## Contract On Scroll
 
