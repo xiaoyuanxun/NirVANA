@@ -25,6 +25,15 @@ NirVANA 基于ERC2535钻石合约，钻石合约支持多个切面逻辑合约�
 
 - RecoveryFacet : 0x8558d078a1D3A1dbe9A0e96503Ea21c3DE573D55
 
+- DiamondFactory : 0x56052921464EF0f95e2f20958E7a8B8aA3fDa6F4
+
+- FacetFactory : 0xBbD62f7b7529DabBaC58CD62b6d98393F8B86F42
+
+- SoulMinter : 0x68E519f202C38f02E12C821d90b8114aa40B4b66
+
+- ZK_Verifier : 0xeDB28103a9A0116A13B03Cf87B2D66129cC6fE01
+
+- PrivateOver18Airdrop : 0xC5A1a8b1fdD40c57EbF7292Fea6D77bd4d1Cd428
 
 1. 项目名称: NirVANA
 2. 项目图片 -> 一张
