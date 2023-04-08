@@ -73,7 +73,7 @@ NirVANA提供了一个友好的界面来创建和管理SBT,以及自由地 增�
 
     第二天进度：前端完成landing page，profile等页面开发，完成模块拖拽选择模块，完成SBT模块化创建逻辑。改进合约初始化机制，逻辑模块合约一次性部署；初步集成ZK验证模块
 
-8. Demo视频链接: 
+8. Demo视频链接: https://www.youtube.com/watch?v=9misRClva3Q
 9. 项目 github repo 链接：
 
     合约: https://github.com/xiaoyuanxun/NirVANA 
