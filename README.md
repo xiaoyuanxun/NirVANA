@@ -80,5 +80,5 @@ NirVANA提供了一个友好的界面来创建和管理SBT,以及自由地 增�
 
     前端: https://github.com/beyond009/NirVANA-FE
 
-10. 是否基于以前项目: 基于[ERC2535标准](https://eips.ethereum.org/EIPS/eip-2535)
+10. 是否基于以前项目: 否
 11. 项目Demo链接: https://nirvava.vercel.app/
